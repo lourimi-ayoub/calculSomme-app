@@ -1,19 +1,19 @@
-package com.examp5le.tp3;
+package com.example.tp3;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tp3.R;
 
 public class MainActivity extends AppCompatActivity {
     // Déclaration des variables membres
-    private EditText editText1;
-    private EditText editText2;
-    private TextView textResult;
+    private EditText nombre1;
+    private EditText nombre2;
+    private EditText resultat;
+    private Button btnSomme;
     private Button btnReset;
 
     @Override
@@ -22,9 +22,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 1) Récupération des composants avec findViewById
-        editText1 = findViewById(R.id.editText1);
-        editText2 = findViewById(R.id.editText2);
-        textResult = findViewById(R.id.textResult);
+        nombre1 = findViewById(R.id.nombre1);
+        nombre2 = findViewById(R.id.nombre2);
+        resultat = findViewById(R.id.resultat);
+        btnSomme = findViewById(R.id.btnSomme);
         btnReset = findViewById(R.id.btnReset);
 
         // 2) Gestion du clic sur Reset avec un écouteur (classe anonyme)
@@ -32,36 +33,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Vider les champs de texte
-                editText1.setText("");
-                editText2.setText("");
-                textResult.setText("");
+                nombre1.setText("");
+                nombre2.setText("");
+                resultat.setText("");
             }
         });
     }
 
-    // 3) Méthode pour le bouton Somme (définie dans XML avec android:onClick)
+    // 3) Méthode pour le bouton Somme (à lier dans le XML avec android:onClick)
     public void calculSomme(View v) {
         // Récupération des valeurs des EditText
-        String valeur1 = editText1.getText().toString();
-        String valeur2 = editText2.getText().toString();
+        String valeur1 = nombre1.getText().toString();
+        String valeur2 = nombre2.getText().toString();
 
         // Vérification si les champs ne sont pas vides
         if (!valeur1.isEmpty() && !valeur2.isEmpty()) {
             try {
-                // Conversion des valeurs en nombres
-                double nombre1 = Double.parseDouble(valeur1);
-                double nombre2 = Double.parseDouble(valeur2);
+                // Conversion des valeurs en nombres décimaux
+                double num1 = Double.parseDouble(valeur1);
+                double num2 = Double.parseDouble(valeur2);
 
                 // Calcul de la somme
-                double somme = nombre1 + nombre2;
+                double somme = num1 + num2;
 
-                // Affichage du résultat dans le TextView
-                textResult.setText("Somme : " + somme);
+                // Affichage du résultat dans l'EditText resultat
+                resultat.setText(String.valueOf(somme));
             } catch (NumberFormatException e) {
-                textResult.setText("Erreur : Entrer des nombres valides");
+                resultat.setText("Erreur: Nombres invalides");
             }
         } else {
-            textResult.setText("Erreur : Remplir tous les champs");
+            resultat.setText("Erreur: Champs vides");
         }
     }
 }
